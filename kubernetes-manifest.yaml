@@ -1,23 +1,20 @@
-pipeline {
-    // ... other pipeline configuration ...
-
-    stages {
-        // ... other stages ...
-
-        stage('Deploy to Kubernetes') {
-            steps {
-                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_FILE')]) {
-                    sh """
-                    export KUBECONFIG=$KUBECONFIG_FILE
-                    kubectl apply -f /path/to/kubernetes-manifest.yaml
-                    """
-                }
-            }
-        }
-    }
-
-    // ... post actions ...
-}
+apiVersion: v1
+kind: Config
+clusters:
+- name: my-cluster
+  cluster:
+    server: https://your-kubernetes-api-url
+    certificate-authority-data: YOUR_CA_CERTIFICATE
+contexts:
+- name: my-context
+  context:
+    cluster: my-cluster
+    user: my-user
+current-context: my-context
+users:
+- name: my-user
+  user:
+    token: YOUR_ACCESS_TOKEN
 
 
 
