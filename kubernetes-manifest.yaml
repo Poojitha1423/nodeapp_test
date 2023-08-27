@@ -1,36 +1,21 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: sample-app-deployment
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: sample-app
-  template:
-    metadata:
-      labels:
-        app: sample-app
-    spec:
-      containers:
-        - name: sample-app-container
-          image: poojithasan/docker-jenkins:latest
-          ports:
-            - containerPort: 3000
-
----
 apiVersion: v1
-kind: Service
-metadata:
-  name: sample-app-service
-spec:
-  selector:
-    app: sample-app
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 3000
-  type: LoadBalancer
+kind: Config
+clusters:
+- name: my-cluster
+  cluster:
+    server: https://192.168.49.2:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+    certificate-authority-data: YOUR_CA_CERTIFICATE
+contexts:
+- name: my-context
+  context:
+    cluster: my-cluster
+    user: my-user
+current-context: my-context
+users:
+- name: my-user
+  user:
+    token: YOUR_ACCESS_TOKEN
+
 
 
 
