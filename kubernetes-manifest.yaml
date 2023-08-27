@@ -3,7 +3,7 @@ stage('Deploy to Kubernetes') {
         withCredentials([
             kubeconfig(credentialsId: 'kubernetes-credentials', variable: 'KUBECONFIG')
         ]) {
-            sh "kubectl apply --kubeconfig=$KUBECONFIG -f path/to/kubernetes-manifest.yaml"
+            sh "kubectl apply --kubeconfig=$KUBECONFIG -f kubernetes-manifest.yaml"
         }
     }
 }
