@@ -27,7 +27,7 @@ metadata:
 spec:
   selector:
     app: sample-app
-  ports:
+  ports:cd 
     - protocol: TCP
       port: 80
       targetPort: 3000
